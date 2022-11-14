@@ -1,84 +1,46 @@
-import { BigNumber } from 'ethers';
-import MerkleTree from 'merkletreejs';
+import { BigNumber, BigNumberish } from 'ethers';
 
-export type Distribution = {
-  identifier: string;
-  token: string;
-  merkleRoot: string;
-  proof: string;
+export enum SwapKind {
+  GIVEN_IN,
+  GIVEN_OUT,
+}
+
+export type SwapRequestRequiredParameters = {
+  kind: SwapKind;
+  tokenIn: string;
+  tokenOut: string;
+  amount: BigNumberish;
 };
 
-export type Claim = {
-  token: string;
-  amount: BigNumber | string;
-  claimParams: ClaimParams;
+export type SwapRequest = {
+  kind: SwapKind;
+  tokenIn: string;
+  tokenOut: string;
+  amount: BigNumberish;
+  poolId: string;
+  lastChangeBlock: BigNumberish;
+  from: string;
+  to: string;
+  userData: string;
 };
 
-export type ClaimParams = {
-  identifier: string;
-  account: string;
-  amount: string;
-  merkleProof: string[];
+export type OnSwapParameters = {
+  request: SwapRequest;
+  balanceTokenIn: BigNumberish;
+  balanceTokenOut: BigNumberish;
 };
 
-export type ParseBribeDepositsData = {
-  timestamp: number;
-  bribeIds: string[];
-  rewardIds: unknown[];
-  proposalIds: string[];
-  proposalToBribeIds: { [address: string]: string[] };
-  bribeIdToToken: { [address: string]: string };
-  bribeIdToAmounts: { [address: string]: BigNumber };
+export type PoolInfo = {
+  tokens: string[];
+  balances: BigNumber[];
+  lastChangeBlock: BigNumber;
 };
 
-export type ParseBribeIdsData = {
-  bribeIds: string[];
-  bribeIdToGaugeMap: Map<string, string>;
-  bribeIdToInfoMap: Map<string, { token: string; amount: BigNumber }>;
-};
-
-export type MerkleTreeCollection = {
-  [bribeId: string]: { bribeId: string; token: string; merkleRoot: string; merkleTree: MerkleTree };
-};
-
-export type MerkleLeafPutRequest = {
-  PutRequest: {
-    Item: {
-      voter: { [keyType: string]: string };
-      bribeId: { [keyType: string]: string };
-      token: { [keyType: string]: string };
-      amount: { [keyType: string]: string };
-    };
-  };
-};
-
-export type MerkleDBQuery = {
-  voter: { [attributeType: string]: string };
-  amount: { [attributeType: string]: string };
-  token: { [attributeType: string]: string };
-  bribeId: { [attributeType: string]: string };
-};
-
-export type ProposalInfo = {
-  proposal: string;
-  gauge: string;
-  pool: string;
-  gaugeName: string;
-  votes: string;
-  currentBribes: BribeInfo[];
-  totalUSDValue: number;
-  USDValuePerVote: number;
-};
-
-export type BribeInfo = {
-  token: string;
-  amount: BigNumber;
-  usdValue: number;
-};
-
-export type TokenInfo = {
-  [tokenAddr: string]: {
-    decimals: number;
-    price: number;
-  };
+export type SwapInfo = {
+  description: string;
+  tokenIn: string;
+  tokenOut: string;
+  decimalsIn: number;
+  decimalsOut: number;
+  rate: number;
 };

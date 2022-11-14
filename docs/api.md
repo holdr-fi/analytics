@@ -1,111 +1,59 @@
 # API Endpoints
 
-## Get RewardDistributor.claim() parameters
-
-Required for voters to claim bribing rewards
+## Get LBP time remaining
 
 ```
-GET /claims?address={EVM_ADDRESS}
+GET /time
 ```
-
-### Parameters
-| Name | Type | Description |
-|---|---|---|
-|EVM_ADDRESS|string|EVM address of voter|
 
 ### Return values
 | Name | Type | Description |
 |---|---|---|
-|claims|Claim[]|Array of Claim information|
+|time|number|Remaining time (in seconds) for LBP|
 
-### Claim types
+## Get current LBP prices
+
+```
+GET /price
+```
+
+### Return values
+| Name | Type | Description |
+|---|---|---|
+|lbpPrices|SwapInfo[]|Two-element array containing information about swapping either way through LBP pool|
+
+### SwapInfo types
 
 ```js
-type Claim = {
-  token: string;
-  amount: BigNumber | string;
-  claimParams: ClaimParams;
-};
-
-type ClaimParams = {
-  identifier: string;
-  account: string;
-  amount: string;
-  merkleProof: string[];
+type SwapInfo = {
+  description: string;
+  tokenIn: string;
+  tokenOut: string;
+  decimalsIn: number;
+  decimalsOut: number;
+  rate: number; // For 1 of tokenIn (adjusted for decimals), how much tokenOut do we get?
 };
 ```
 
-#### Claim properties
-| Property | Type | Description |
-|---|---|---|
-|token|string|Address of ERC20 reward token|
-|amount|string|Amount of bribe reward|
-|claimParams|ClaimParams|Required parameter for RewardDistributor.claim() function|
+### Example response
 
-#### ClaimParams properties
-Actual parameter required for RewardDistributor.claim()
-| Property | Type | Description |
-|---|---|---|
-|identifier|string|Unique identifier for bribe (each bribe has a unique identifier depending on gauge, bribe token and deadline)|
-|account|string|EVM address of claimer|
-|amount|string|Amount of bribe reward|
-|merkleProof|string|Merkle proof|
-
-<br/>
-
-## Get BribeVault.depositBribeERC20() parameters
-
+```bash
+[
+  {
+    description: 'ETH to HLDR',
+    tokenIn: '0x0Ab2e51763E84c5473C8001b39F745dfE8d4f9f9',
+    tokenOut: '0x76e6Ab0F386A8Fcd727DcA6ce5C266D651458590',
+    decimalsIn: 18,
+    decimalsOut: 18,
+    rate: 0.00051284349507
+  },
+  {
+    description: 'HLDR to ETH',
+    tokenIn: '0x76e6Ab0F386A8Fcd727DcA6ce5C266D651458590',
+    tokenOut: '0x0Ab2e51763E84c5473C8001b39F745dfE8d4f9f9',
+    decimalsIn: 18,
+    decimalsOut: 18,
+    rate: 1892.122022031052
+  }
+]
 ```
-GET /depositbribe
-```
-
-### Return values
-| Name | Type | Description |
-|---|---|---|
-|proposalsAndGauges|ProposalAndGauge[]|Array of active proposals (and associated gauge and pool)|
-|tokens|string[]|Array of tokens whitelisted for bribes|
-
-### ProposalAndGauge type
-
-```js
-type ProposalInfo = {
-  proposal: string;
-  gauge: string;
-  pool: string;
-  gaugeName: string;
-  votes: string;
-  currentBribes: BribeInfo[];
-  totalUSDValue: number;
-  USDValuePerVote: number;
-};
-
-type BribeInfo = {
-  token: string;
-  amount: BigNumber;
-  usdValue: number;
-};
-```
-
-| Property | Type | Description |
-|---|---|---|
-|proposal|string|proposal ID|
-|gauge|string|Corresponding gauge, each proposal ID maps one-to-one to a gauge|
-|pool|string|Pool associated with gauge|
-|gaugeName|string|Gauge name|
-|votes|string|Current total votes for gauge|
-|currentBribes|BribeInfo[]|Array of current bribes for this gauge|
-|totalUSDValue|number|Total USD value of all current bribes for gauge|
-|USDValuePerVote|number|USD value per vote for current bribes for gauge|
-
-<br/>
-
-## Get bribing epoch end timestamp
-
-```
-GET /epochend
-```
-
-### Return values
-| Name | Type | Description |
-|---|---|---|
-|deadline|number|Unix timestamp of next epoch end (if there is no active bribe, this will get the end timestamp of the most recent epoch)|

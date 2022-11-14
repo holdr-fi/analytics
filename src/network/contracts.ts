@@ -1,8 +1,6 @@
-import BalancerBribeABI from './abis/BalancerBribe.json';
-import BribeVaultABI from './abis/BribeVault.json';
-import RewardDistributorABI from './abis/RewardDistributor.json';
-import GaugeControllerABI from './abis/GaugeController.json';
-import VotingEscrowABI from './abis/VotingEscrow.json';
+import VaultABI from './abis/Vault.json';
+import LBPFactoryABI from './abis/NoProtocolFeeLiquidityBootstrappingPoolFactory.json';
+import LBPPoolABI from './abis/NoProtocolFeeLiquidityBootstrappingPool.json';
 import { contractAddressListCollection } from './contractAddress';
 import { ContractAddressList } from './types';
 import { provider } from './provider';
@@ -13,16 +11,12 @@ const contractList: ContractAddressList = contractAddressListCollection[CHAIN_ID
 
 const getABI = function getABI(contractName: string) {
   switch (contractName) {
-    case 'BalancerBribe':
-      return BalancerBribeABI;
-    case 'BribeVault':
-      return BribeVaultABI;
-    case 'RewardDistributor':
-      return RewardDistributorABI;
-    case 'GaugeController':
-      return GaugeControllerABI;
-    case 'VotingEscrow':
-      return VotingEscrowABI;
+    case 'Vault':
+      return VaultABI;
+    case 'LBPFactory':
+      return LBPFactoryABI;
+    case 'LBPPool':
+      return LBPPoolABI;
     default:
       throw new Error(`Unable to find ${contractName}ABI`);
   }

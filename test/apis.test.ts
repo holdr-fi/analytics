@@ -1,18 +1,18 @@
-import { getEpochEndTime, getTransferBribesParameters } from '../src/functions';
+import { getLBPTimeRemaining, getLBPprice } from '../src/functions';
 
 describe('API endpoints', async () => {
-  describe('#getEpochEndTime()', async () => {
+  describe('#getLBPEndTime()', async () => {
     it('', async () => {
-      // const data = await getEpochEndTime();
+      // const data = await getLBPTimeRemaining();
       // console.log(data);
       return;
     }).timeout(10000);
   });
 
-  describe('#getTransferBribesParameters()', async () => {
+  describe('#getLBPprice()', async () => {
     it('', async () => {
-      // const data = await getTransferBribesParameters();
-      // console.log(data);
+      const data = await getLBPprice();
+      console.log(data);
       return;
     }).timeout(10000);
   });

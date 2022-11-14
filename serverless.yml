@@ -1,135 +1,29 @@
-service: solace-swap-bribes
+service: holdr-lbp-api
 frameworkVersion: '3'	
 useDotenv: true
 
 plugins:
   - serverless-esbuild
   - serverless-dotenv-plugin
-  - serverless-dynamodb-autoscaling
-
-custom:
-  capacities:
-    - table: UsersDynamoDBTable
-      read:
-        minimum: 5
-        maximum: 1000
-        usage: 0.75
-      write:
-        minimum: 5
-        maximum: 200
-        usage: 0.75
 
 provider:
   name: aws
   region: us-west-2
-  stackName: solace-swap-bribes
+  stackName: holdr-lbp-api
   runtime: nodejs14.x
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-        - s3:ListBucket
-      Resource:
-        arn:aws:s3:::${env:BUCKET_NAME}/*
-    - Effect: Allow
-      Action:
-        - lambda:InvokeFunction
-      Resource: 
-        arn:aws:lambda:${aws:region}:${aws:accountId}:function:solace-swap-bribes-dev-parseBribeDeposits
-    - Effect: Allow
-      Action:
-        - lambda:InvokeFunction
-      Resource: 
-        arn:aws:lambda:${aws:region}:${aws:accountId}:function:solace-swap-bribes-dev-getGaugeToProposalMap
-    - Effect: Allow
-      Action:
-        - lambda:InvokeFunction
-      Resource: 
-        arn:aws:lambda:${aws:region}:${aws:accountId}:function:solace-swap-bribes-dev-createMerkleTree
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:BatchWriteItem
-        - dynamodb:UpdateItem
-        - dynamodb:UpdateTable
-        - dynamodb:DeleteItem
-      Resource: 
-        Fn::GetAtt:
-          - UsersDynamoDBTable
-          - Arn
 
 functions:
-  parseBribeDeposits:
-    handler: src/handlers.parseBribeDepositsHandler
-  createMerkleTree:
-    handler: src/handlers.createMerkleTreeHandler
-  getGaugeToProposalMap:
-    handler: src/handlers.getGaugeToProposalMapHandler
-  createEmptyS3Objects:
-    handler: src/handlers.createEmptyS3ObjectsHandler
-  updater:
-    handler: src/handlers.updaterHandler
-  getTransferBribesParameters:
-    handler: src/handlers.getTransferBribesParametersHandler
+  getLBPTimeRemaining:
+    handler: src/handlers.getLBPTimeRemainingHandler
     events:
       - http:
-          path: transferbribes
+          path: time
           method: get
           cors: true
-  getUpdateRewardsMetadataParameters:
-    handler: src/handlers.getUpdateRewardsMetadataParametersHandler
+  getLBPprice:
+    handler: src/handlers.getLBPPriceHandler
     events:
       - http:
-          path: rewardsmetadata
+          path: price
           method: get
           cors: true
-  getClaims:
-    handler: src/handlers.getClaimsHandler
-    events:
-      - http:
-          path: claims
-          method: get
-          cors: true
-  getEpochEndTime:
-    handler: src/handlers.getEpochEndTimeHandler
-    events:
-      - http:
-          path: epochend
-          method: get
-          cors: true
-  getDepositBribeParameters:
-    handler: src/handlers.getDepositBribeParametersHandler
-    events:
-      - http:
-          path: depositbribe
-          method: get
-          cors: true
-
-resources:
-  Resources:
-    Bucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${env:BUCKET_NAME}
-
-    UsersDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        TableName: ${env:TABLE_NAME}
-        AttributeDefinitions:
-          - AttributeName: voter
-            AttributeType: S
-          - AttributeName: bribeId
-            AttributeType: S
-        KeySchema:
-          - AttributeName: voter
-            KeyType: HASH
-          - AttributeName: bribeId
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 5
-          WriteCapacityUnits: 5
