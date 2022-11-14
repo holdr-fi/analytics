@@ -5,9 +5,11 @@ useDotenv: true
 plugins:
   - serverless-esbuild
   - serverless-dotenv-plugin
+  - serverless-domain-manager
 
 provider:
   name: aws
+  stage: dev
   region: us-west-2
   stackName: holdr-lbp-api
   runtime: nodejs14.x
@@ -27,3 +29,12 @@ functions:
           path: price
           method: get
           cors: true
+
+	
+custom:
+  customDomain:
+    certificateName: holdr.fi
+    domainName: api.holdr.fi
+    basePath: 'lbp'
+    stage: ${self:provider.stage}
+    createRoute53Record: true

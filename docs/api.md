@@ -3,7 +3,7 @@
 ## Get LBP time remaining
 
 ```
-GET /time
+GET https://api.holdr.fi/lbp/time
 ```
 
 ### Return values
@@ -14,7 +14,7 @@ GET /time
 ## Get current LBP prices
 
 ```
-GET /price
+GET https://api.holdr.fi/lbp/price
 ```
 
 ### Return values
