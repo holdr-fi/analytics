@@ -1,2 +1,2 @@
-export * from './getLBPTimeRemaining';
+export * from './getLBPEndTime';
 export * from './getLBPPrice';

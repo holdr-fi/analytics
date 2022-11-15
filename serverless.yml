@@ -15,8 +15,8 @@ provider:
   runtime: nodejs14.x
 
 functions:
-  getLBPTimeRemaining:
-    handler: src/handlers.getLBPTimeRemainingHandler
+  getLBPEndTime:
+    handler: src/handlers.getLBPEndTimeHandler
     events:
       - http:
           path: time

@@ -1,4 +1,5 @@
 import VaultABI from './abis/Vault.json';
+import ERC20ABI from './abis/ERC20.json';
 import LBPFactoryABI from './abis/NoProtocolFeeLiquidityBootstrappingPoolFactory.json';
 import LBPPoolABI from './abis/NoProtocolFeeLiquidityBootstrappingPool.json';
 import { contractAddressListCollection } from './contractAddress';
@@ -17,6 +18,8 @@ const getABI = function getABI(contractName: string) {
       return LBPFactoryABI;
     case 'LBPPool':
       return LBPPoolABI;
+    case 'HLDR':
+      return ERC20ABI;
     default:
       throw new Error(`Unable to find ${contractName}ABI`);
   }

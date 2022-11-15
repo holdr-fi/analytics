@@ -3,9 +3,11 @@ import { contracts, provider } from '../network';
 import ERC20ABI from '../network/abis/ERC20.json';
 import { PoolInfo, SwapRequest, SwapKind, SwapInfo } from '../types';
 import { ZERO_ADDRESS } from '../constants';
+import { getCoingeckoPrice } from '../utils';
 const { parseUnits, formatUnits } = utils;
 
-export const getLBPPrice = async function getLBPPrice(): Promise<SwapInfo[]> {
+export const getLBPPrice = async function getLBPPrice(): Promise<number> {
+  const hldr = contracts['HLDR'];
   const lbp: Contract = contracts['LBPPool'];
   const vault: Contract = contracts['Vault'];
   const poolId = await lbp.getPoolId();
@@ -56,6 +58,8 @@ export const getLBPPrice = async function getLBPPrice(): Promise<SwapInfo[]> {
     lbp.callStatic.onSwap(swapRequest_1to0, poolInfo.balances[1], poolInfo.balances[0]),
   ]);
 
+  const prices = await getCoingeckoPrice([poolInfo.tokens[0], poolInfo.tokens[1]]);
+
   const swapInfo: SwapInfo[] = poolInfo.tokens.map((token, index) => {
     return {
       description: `${symbols[index]} to ${symbols[index === 0 ? 1 : 0]}`,
@@ -67,5 +71,12 @@ export const getLBPPrice = async function getLBPPrice(): Promise<SwapInfo[]> {
     };
   });
 
-  return swapInfo;
+  const priceInUSD = swapInfo.reduce((price, swapInfo) => {
+    if (swapInfo.tokenOut === hldr.address) {
+      price = prices[swapInfo.tokenIn] / swapInfo.rate;
+    }
+    return price;
+  }, 0);
+
+  return priceInUSD;
 };

@@ -1,17 +1,17 @@
-import { getLBPTimeRemaining, getLBPPrice } from './functions';
+import { getLBPEndTime, getLBPPrice } from './functions';
 
-export const getLBPTimeRemainingHandler = async function getLBPTimeRemainingHanlder(event) {
+export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
   try {
-    console.time('getLBPTimeRemaining');
-    const timeRemaining = await getLBPTimeRemaining();
-    console.timeEnd('getLBPTimeRemaining');
+    console.time('getLBPEndTime');
+    const endTime = await getLBPEndTime();
+    console.timeEnd('getLBPEndTime');
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: JSON.stringify(timeRemaining),
+      body: JSON.stringify(endTime),
     };
   } catch (e) {
     console.error(e);
@@ -21,7 +21,7 @@ export const getLBPTimeRemainingHandler = async function getLBPTimeRemainingHanl
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: 'getLBPTimeRemainingHandler error',
+      body: 'getLBPEndTimeHandler error',
     };
   }
 };
