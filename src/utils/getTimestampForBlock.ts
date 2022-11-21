@@ -1,44 +1,34 @@
-import { BlockTimeParameters } from './';
-import { provider } from '../network';
+import { getCurrentTimestamp } from './';
+import { BLOCK_EXPLORER_API_KEY, BLOCK_EXPLORER_BASE_URL } from '../constants';
+import axios from 'axios';
 
-const acceptedErrorInSeconds = 300;
+// Use Etherscan API endpoint - https://docs.etherscan.io/api-endpoints/blocks#get-block-number-by-timestamp
+// Initially attempted modified binary search implementation however O(lg N) is too slow when each network call can take up to 2s to return.
 
-// Modified binary search for block corresponding to desired timestamp, within 5-minutes of accuracy (acceptable for our use-case of finding the starting block of the current epoch).
-
-export const getBlockForTimestamp = async function getBlockForTimestamp(
-  desiredTimestamp: number,
-  referenceBlock: BlockTimeParameters
-): Promise<number> {
-  // Get average time-per-block, from 1000 block sample.
-  const { timestamp: olderBlockTimestamp } = await provider.getBlock(referenceBlock.blockNumber - 1000);
-  const averageBlockTime = (referenceBlock.timestamp - olderBlockTimestamp) / 1000;
-
-  // Find starting interval for binary search.
-  const expectedBlockDelta = Math.floor((referenceBlock.timestamp - desiredTimestamp) / averageBlockTime);
-
-  const expectedBlock = referenceBlock.blockNumber - expectedBlockDelta;
-
-  // Starting binary search interval of 512 blocks.
-  let lowerBound = expectedBlock - 256;
-  let upperBound = expectedBlock + 256;
-  let searchBlock = expectedBlock;
-
-  //  eslint-disable-next-line
-  while (true) {
-    const searchBlockTimestamp = (await provider.getBlock(searchBlock)).timestamp;
-
-    if (Math.abs(searchBlockTimestamp - desiredTimestamp) <= acceptedErrorInSeconds) {
-      break;
-    }
-
-    if (searchBlockTimestamp > desiredTimestamp) {
-      upperBound = searchBlock;
-    } else {
-      lowerBound = searchBlock;
-    }
-
-    searchBlock = Math.floor((lowerBound + upperBound) / 2);
+export const getBlockForTimestamp = async function getBlockForTimestamp(desiredTimestamp: number): Promise<number> {
+  if (desiredTimestamp > getCurrentTimestamp()) {
+    throw new Error('Cannot get block for timestamp in the future');
   }
 
-  return searchBlock;
+  /*
+  Expecting:
+    data: {
+      "status":"1",
+      "message":"OK",
+      "result":"12712551"
+    }
+   */
+  const {
+    data: { result },
+  } = await axios.get(BLOCK_EXPLORER_BASE_URL, {
+    params: {
+      module: 'block',
+      action: 'getblocknobytime',
+      timestamp: desiredTimestamp,
+      closest: 'before',
+      apikey: BLOCK_EXPLORER_API_KEY,
+    },
+  });
+
+  return parseInt(result, 10);
 };

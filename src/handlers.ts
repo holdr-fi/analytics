@@ -1,9 +1,9 @@
-import { getLBPEndTime, getLBPPrice } from './functions';
+import { getLBPEndTime, getLBPPrices, getLBPTokensRemaining } from './functions';
 
 export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
   try {
     console.time('getLBPEndTime');
-    const endTime = await getLBPEndTime();
+    const data = await getLBPEndTime();
     console.timeEnd('getLBPEndTime');
     return {
       statusCode: 200,
@@ -11,7 +11,7 @@ export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: JSON.stringify(endTime),
+      body: JSON.stringify(data),
     };
   } catch (e) {
     console.error(e);
@@ -26,18 +26,18 @@ export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
   }
 };
 
-export const getLBPPriceHandler = async function getLBPPriceHandler(event) {
+export const getLBPPricesHandler = async function getLBPPricesHandler(event) {
   try {
-    console.time('getLBPPrice');
-    const price = await getLBPPrice();
-    console.timeEnd('getLBPPrice');
+    console.time('getLBPPrices');
+    const data = await getLBPPrices();
+    console.timeEnd('getLBPPrices');
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: JSON.stringify(price),
+      body: JSON.stringify(data),
     };
   } catch (e) {
     console.error(e);
@@ -47,7 +47,33 @@ export const getLBPPriceHandler = async function getLBPPriceHandler(event) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: 'getLBPPriceHandler error',
+      body: 'getLBPPricesHandler error',
+    };
+  }
+};
+
+export const getLBPTokensRemainingHandler = async function getLBPTokensRemainingHandler(event) {
+  try {
+    console.time('getLBPTokensRemaining');
+    const data = await getLBPTokensRemaining();
+    console.timeEnd('getLBPTokensRemaining');
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify(data),
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: 'getLBPTokensRemainingHandler error',
     };
   }
 };

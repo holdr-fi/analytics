@@ -1,27 +1,25 @@
 import axios from 'axios';
-import { CHAIN_ID } from '../constants';
+import { getPlatformId } from './';
 
-export const getCoingeckoPrice = async function getCoingeckoPrice(tokenAddresses: string[]): Promise<PriceData> {
-  let platformId = '';
-  switch (CHAIN_ID) {
-    case '80001':
-      return tokenAddresses.reduce((runningPriceData, tokenAddr) => {
-        runningPriceData[tokenAddr] = 0;
-        return runningPriceData;
-      }, {} as PriceData);
-    case '1':
-      platformId = 'ethereum';
-      break;
-    case '1313161554':
-      platformId = 'aurora';
-      break;
-    default:
-      return tokenAddresses.reduce((runningPriceData, tokenAddr) => {
-        runningPriceData[tokenAddr] = 0;
-        return runningPriceData;
-      }, {} as PriceData);
+export const getCoingeckoSpotPrice = async function getCoingeckoSpotPrice(
+  tokenAddresses: string[]
+): Promise<SpotPriceData> {
+  const platformId = getPlatformId();
+
+  if (platformId === '') {
+    return tokenAddresses.reduce((runningPriceData, tokenAddr) => {
+      runningPriceData[tokenAddr] = 0;
+      return runningPriceData;
+    }, {} as SpotPriceData);
+  } else {
+    return await getCoingeckoSpotPriceForPlatformId(tokenAddresses, platformId);
   }
+};
 
+export const getCoingeckoSpotPriceForPlatformId = async function getCoingeckoSpotPriceForPlatformId(
+  tokenAddresses: string[],
+  platformId: string
+): Promise<SpotPriceData> {
   // Build `contract_addresses` argument for API request
   let contractsStr = '';
   for (let i = 0; i < tokenAddresses.length; i++) {
@@ -39,7 +37,7 @@ export const getCoingeckoPrice = async function getCoingeckoPrice(tokenAddresses
         vs_currencies: 'usd',
       },
     }
-  )) as { data: CoingeckoTokenPriceResponse };
+  )) as { data: CoingeckoSimpleTokenPriceResponse };
 
   // If Coingecko response includes price for provided token address, provide it. Otherwise, return 0.
   return tokenAddresses.reduce((runningPriceData, tokenAddr) => {
@@ -47,15 +45,15 @@ export const getCoingeckoPrice = async function getCoingeckoPrice(tokenAddresses
       ? coingeckoData[tokenAddr.toLowerCase()]['usd']
       : 0;
     return runningPriceData;
-  }, {} as PriceData);
+  }, {} as SpotPriceData);
 };
 
-type CoingeckoTokenPriceResponse = {
+type CoingeckoSimpleTokenPriceResponse = {
   [tokenAddress: string]: {
     [currency: string]: number;
   };
 };
 
-type PriceData = {
+type SpotPriceData = {
   [tokenAddress: string]: number;
 };
