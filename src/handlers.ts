@@ -1,4 +1,4 @@
-import { getLBPEndTime, getLBPPrices, getLBPTokensRemaining } from './functions';
+import { getLBPEndTime, getLBPprice, getLBPHistoricalPrices, getLBPTokensRemaining } from './functions';
 
 export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
   try {
@@ -26,10 +26,36 @@ export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
   }
 };
 
-export const getLBPPricesHandler = async function getLBPPricesHandler(event) {
+export const getLBPpriceHandler = async function getLBPpriceHandler(event) {
+  try {
+    console.time('getLBPprice');
+    const data = await getLBPprice();
+    console.timeEnd('getLBPprice');
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: JSON.stringify(data),
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      body: 'getLBPpriceHandler error',
+    };
+  }
+};
+
+export const getLBPHistoricalPricesHandler = async function getLBPHistoricalPricesHandler(event) {
   try {
     console.time('getLBPPrices');
-    const data = await getLBPPrices();
+    const data = await getLBPHistoricalPrices();
     console.timeEnd('getLBPPrices');
     return {
       statusCode: 200,
@@ -47,7 +73,7 @@ export const getLBPPricesHandler = async function getLBPPricesHandler(event) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: 'getLBPPricesHandler error',
+      body: 'getLBPHistoricalPricesHandler error',
     };
   }
 };

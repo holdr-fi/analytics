@@ -23,17 +23,24 @@ functions:
           method: get
           cors: true
   getLBPprice:
-    handler: src/handlers.getLBPPricesHandler
+    handler: src/handlers.getLBPpriceHandler
     events:
       - http:
           path: price
+          method: get
+          cors: true
+  getLBPHistoricalPrices:
+    handler: src/handlers.getLBPHistoricalPricesHandler
+    events:
+      - http:
+          path: priceHistory
           method: get
           cors: true
   getLBPTokensRemaining:
     handler: src/handlers.getLBPTokensRemainingHandler
     events:
       - http:
-          path: tokens
+          path: tokensRemaining
           method: get
           cors: true
 

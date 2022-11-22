@@ -14,7 +14,7 @@ Require return type:
 ]
 */
 
-export const getLBPPrices = async function getLBPPrices(): Promise<(string | number)[][]> {
+export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): Promise<[string, number][]> {
   const hldr = contracts['HLDR'];
   const lbp: Contract = contracts['LBPPool'];
   const vault: Contract = contracts['Vault'];
@@ -141,7 +141,7 @@ export const getLBPPrices = async function getLBPPrices(): Promise<(string | num
       usdPriceOfHLDR = parseFloat(inverseLBPprice) * coingeckoPrice;
     }
 
-    return [timeString, usdPriceOfHLDR];
+    return [timeString, usdPriceOfHLDR] as [string, number];
   });
 
   return parsedLBPprices;

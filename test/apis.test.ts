@@ -1,4 +1,4 @@
-import { getLBPEndTime, getLBPPrices, getLBPTokensRemaining } from '../src/functions';
+import { getLBPEndTime, getLBPprice, getLBPHistoricalPrices, getLBPTokensRemaining } from '../src/functions';
 import {
   getCoingeckoSpotPriceForPlatformId,
   getCoingeckoHistoricalPricesForToken,
@@ -15,9 +15,17 @@ describe('API endpoints', async () => {
     }).timeout(10000);
   });
 
-  describe('#getLBPPrices()', async () => {
+  describe('#getLBPprice()', async () => {
     it('', async () => {
-      const data = await getLBPPrices();
+      const data = await getLBPprice();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+
+  describe('#getLBPHistoricalPrices()', async () => {
+    it('', async () => {
+      const data = await getLBPHistoricalPrices();
       console.log(data);
       return;
     }).timeout(10000);

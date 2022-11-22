@@ -11,12 +11,28 @@ GET https://api.holdr.fi/lbp/time
 |---|---|---|
 |endTime|number|Unix timestamp of LBP end|
 
-## Get current LBP prices
+## Get current LBP price
+
+```
+GET https://api.holdr.fi/lbp/price
+```
 
 ### Return values
 | Name | Type | Description |
 |---|---|---|
-|price|[string, number][]|Historical price data for HLDR in LBP|
+|price|number|Current LBP price in USD for HLDR|
+
+
+## Get historical LBP prices
+
+```
+GET https://api.holdr.fi/lbp/priceHistory
+```
+
+### Return values
+| Name | Type | Description |
+|---|---|---|
+|prices|[string, number][]|Historical price data for HLDR in LBP|
 
 ### Example Response 
 
@@ -38,7 +54,7 @@ GET https://api.holdr.fi/lbp/time
 ## Get HLDR tokens remaining for LBP
 
 ```
-GET https://api.holdr.fi/lbp/tokens
+GET https://api.holdr.fi/lbp/tokensRemaining
 ```
 
 ### Return values
