@@ -19,7 +19,7 @@ export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): P
   const lbp: Contract = contracts['LBPPool'];
   const vault: Contract = contracts['Vault'];
   const [poolId, gradualWeightUpdateParams] = await Promise.all([lbp.getPoolId(), lbp.getGradualWeightUpdateParams()]);
-  const { startTime } = gradualWeightUpdateParams;
+  const { startTime, endTime } = gradualWeightUpdateParams;
   const poolInfo: PoolInfo = await vault.getPoolTokens(poolId);
   const reserveTokenAddress = poolInfo.tokens[0] === hldr.address ? poolInfo.tokens[1] : poolInfo.tokens[0];
   const reserveToken = new Contract(reserveTokenAddress, ERC20ABI, provider);
@@ -42,7 +42,7 @@ export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): P
   //   await getCoingeckoHistoricalPrices(
   //     [reserveTokenAddress],
   //     parseInt(String(startTime), 10),
-  //     Math.floor(Date.now() / 1000)
+  //     Math.min(Math.floor(Date.now() / 1000), parseInt(String(endTime), 10))
   //   )
   // )[reserveTokenAddress];
 
@@ -82,19 +82,7 @@ export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): P
     }
   });
 
-  const swapRequest_reserveToHLDR: SwapRequest = {
-    kind: SwapKind.GIVEN_IN,
-    tokenIn: reserveTokenAddress,
-    tokenOut: hldr.address,
-    amount: parseUnits('1.0', reserveTokenDecimals),
-    poolId: poolId,
-    lastChangeBlock: poolInfo.lastChangeBlock,
-    from: ZERO_ADDRESS,
-    to: ZERO_ADDRESS,
-    userData: '0x',
-  };
-
-  const historicalLBPprices: BigNumber[] = await Promise.all(
+  const historicalLBPprices: PromiseSettledResult<BigNumber>[] = await Promise.allSettled(
     historicalBlockNumbers.map(async (blockNumber) => {
       const historicalPoolInfo = await vault.getPoolTokens(poolId, { blockTag: blockNumber });
       const poolReserveBalance =
@@ -112,16 +100,41 @@ export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): P
         return ZERO;
       }
 
-      const lbpPrice = await lbp.callStatic.onSwap(swapRequest_reserveToHLDR, poolReserveBalance, poolHLDRBalance);
+      const swapRequest_reserveToHLDR: SwapRequest = {
+        kind: SwapKind.GIVEN_IN,
+        tokenIn: reserveTokenAddress,
+        tokenOut: hldr.address,
+        amount: parseUnits('1.0', reserveTokenDecimals),
+        poolId: poolId,
+        lastChangeBlock: historicalPoolInfo.lastChangeBlock,
+        from: ZERO_ADDRESS,
+        to: ZERO_ADDRESS,
+        userData: '0x',
+      };
+
+      const lbpPrice = await lbp.callStatic.onSwap(swapRequest_reserveToHLDR, poolReserveBalance, poolHLDRBalance, {
+        blockTag: blockNumber,
+      });
       return lbpPrice;
     })
   );
+
+  // console.log(
+  //   'historicalLBPprices: ',
+  //   historicalLBPprices.map((price, index) => {
+  //     return {
+  //       interpolatedBlock: historicalBlockNumbers[index],
+  //       TokenPerReserve: formatUnits(price, reserveTokenDecimals),
+  //       ReserveUSDPrice: historicalReservePrices[index],
+  //     };
+  //   })
+  // );
 
   const parsedLBPprices = timestamps.map((timestamp, index) => {
     // Parse from unix timestamp in seconds to '2022/11/16 00:00' form.
     const dateObject = new Date(timestamp * 1000);
     const year = dateObject.getFullYear();
-    const month = String(dateObject.getMonth()).padStart(2, '0');
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
     const day = String(dateObject.getDate()).padStart(2, '0');
     const hours = String(dateObject.getHours()).padStart(2, '0');
     const minutes = String(dateObject.getMinutes()).padStart(2, '0');
@@ -129,8 +142,17 @@ export const getLBPHistoricalPrices = async function getLBPHistoricalPrices(): P
 
     // This is USD price for 1 (adjusted for decimals) reserveToken
     const coingeckoPrice = historicalReservePrices[index][1];
+
+    if (historicalLBPprices[index].status === 'rejected') {
+      // console.log(historicalLBPprices[index]);
+      return [timeString, 0] as [string, number];
+    }
+
     // This is amount of HLDR for 1 (adjusted for decimals) reserveToken
-    const lbpPrice = historicalLBPprices[index];
+    const wrappedHistoricalLBPprices = historicalLBPprices[index] as PromiseFulfilledResult<BigNumber>;
+    const lbpPrice = wrappedHistoricalLBPprices.value;
+    // const lbpPrice = historicalLBPprices[index];
+
     let usdPriceOfHLDR: number;
     if (lbpPrice.eq(ZERO)) {
       // Avoid /0 error

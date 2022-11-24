@@ -34,16 +34,21 @@ export const getLBPprice = async function getLBPprice(): Promise<number> {
     return 0;
   }
 
-  // This is amount of HLDR for 1 (adjusted for decimals) reserveToken
-  const lbpPrice = await lbp.callStatic.onSwap(swapRequest_reserveToHLDR, poolReserveBalance, poolHLDRBalance);
-  if (lbpPrice.eq(ZERO)) {
-    return 0;
-  }
-
   // This is USD price for 1 (adjusted for decimals) reserveToken
   const coingeckoPrice = (await getCoingeckoSpotPrice([reserveTokenAddress]))[reserveTokenAddress];
 
-  const inverseLBPprice = formatUnits(BigNumber.from('10').pow(36).div(lbpPrice), 18);
-  const usdPriceOfHLDR = parseFloat(inverseLBPprice) * coingeckoPrice;
-  return usdPriceOfHLDR;
+  try {
+    // This is amount of HLDR for 1 (adjusted for decimals) reserveToken
+    const lbpPrice = await lbp.callStatic.onSwap(swapRequest_reserveToHLDR, poolReserveBalance, poolHLDRBalance);
+    if (lbpPrice.eq(ZERO)) {
+      return 0;
+    }
+
+    const inverseLBPprice = formatUnits(BigNumber.from('10').pow(36).div(lbpPrice), 18);
+    const usdPriceOfHLDR = parseFloat(inverseLBPprice) * coingeckoPrice;
+    return usdPriceOfHLDR;
+  } catch (e) {
+    console.error(e);
+    return 0;
+  }
 };

@@ -4,3 +4,4 @@ export * from './sleep';
 export * from './types';
 export * from './arraySlicer';
 export * from './price';
+export * from './logSwaps';
