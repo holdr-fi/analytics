@@ -1,4 +1,4 @@
-API to support LBP for Hodlr. Written using Serverless framework.
+API to support analytics for Hodlr. Written using Serverless framework.
 
 # Viewing deployed resources (useful for getting API URL)
 

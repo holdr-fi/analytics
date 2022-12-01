@@ -1,43 +1,93 @@
-import { getLBPEndTime, getLBPprice, getLBPHistoricalPrices, getLBPTokensRemaining } from '../src/functions';
 import {
-  getCoingeckoSpotPriceForPlatformId,
-  getCoingeckoHistoricalPricesForToken,
-  getBlockForTimestamp,
-  logSwaps,
-} from '../src/utils';
+  getPoolCount,
+  getLPCount,
+  getTVL,
+  getTokensMinted,
+  getTokenHolderCount,
+  getTokenHolderAndLPCount,
+  getAllSwaps,
+  getTokenDecimals,
+  get24HSwapVolume,
+  get7DSwapVolume,
+} from '../src/functions';
+// import {
+//   getCoingeckoSpotPriceForPlatformId,
+//   getCoingeckoHistoricalPricesForToken,
+//   getBlockForTimestamp,
+//   logSwaps,
+// } from '../src/utils';
 import { expect } from 'chai';
 
 describe('API endpoints', async () => {
-  describe('#getLBPEndTime()', async () => {
+  // describe('#getPoolCount()', async () => {
+  //   it('', async () => {
+  //     const data = await getPoolCount();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getLPCount()', async () => {
+  //   it('', async () => {
+  //     const data = await getLPCount();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTVL()', async () => {
+  //   it('', async () => {
+  //     const data = await getTVL();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTokensMinted()', async () => {
+  //   it('', async () => {
+  //     const data = await getTokensMinted();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTokenHolderCount()', async () => {
+  //   it('', async () => {
+  //     const data = await getTokenHolderCount();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTokenHolderAndLPCount()', async () => {
+  //   it('', async () => {
+  //     const data = await getTokenHolderAndLPCount();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getSwapVolume()', async () => {
+  //   it('', async () => {
+  //     const data = await getSwapVolume();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTokenDecimals()', async () => {
+  //   it('', async () => {
+  //     const data = await getTokenDecimals();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  describe('#get24HSwapVolume()', async () => {
     it('', async () => {
-      const data = await getLBPEndTime();
+      const data = await get24HSwapVolume();
       console.log(data);
       return;
     }).timeout(10000);
   });
-
-  // describe('#getLBPprice()', async () => {
-  //   it('', async () => {
-  //     const data = await getLBPprice();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(30000);
-  // });
-
-  describe('#getLBPHistoricalPrices()', async () => {
+  describe('#get7DSwapVolume()', async () => {
     it('', async () => {
-      const data = await getLBPHistoricalPrices();
+      const data = await get7DSwapVolume();
       console.log(data);
       return;
-    }).timeout(30000);
-  });
-
-  describe('#getLBPTokensRemaining()', async () => {
-    it('', async () => {
-      const data = await getLBPTokensRemaining();
-      console.log(data);
-      return;
-    }).timeout(30000);
+    }).timeout(10000);
   });
 });
 

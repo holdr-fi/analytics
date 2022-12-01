@@ -5,3 +5,6 @@ export * from './types';
 export * from './arraySlicer';
 export * from './price';
 export * from './logSwaps';
+export * from './subgraph';
+export * from './handlerWrapper';
+export * from './getEvents';

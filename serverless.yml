@@ -1,4 +1,4 @@
-service: holdr-lbp-api
+service: holdr-analytics
 frameworkVersion: '3'	
 useDotenv: true
 
@@ -11,44 +11,71 @@ provider:
   name: aws
   stage: dev
   region: us-west-2
-  stackName: holdr-lbp-api
+  stackName: holdr-analytics
   runtime: nodejs14.x
 
 functions:
-  getLBPEndTime:
-    handler: src/handlers.getLBPEndTimeHandler
+  getPoolCount:
+    handler: src/handlers.getPoolCountHandler
     events:
       - http:
-          path: time
+          path: poolCount
           method: get
           cors: true
-  getLBPprice:
-    handler: src/handlers.getLBPpriceHandler
+  getLPCount:
+    handler: src/handlers.getLPCountHandler
     events:
       - http:
-          path: price
+          path: lpCount
           method: get
           cors: true
-  getLBPHistoricalPrices:
-    handler: src/handlers.getLBPHistoricalPricesHandler
+  getTVL:
+    handler: src/handlers.getTVLHandler
     events:
       - http:
-          path: priceHistory
+          path: tvl
           method: get
           cors: true
-  getLBPTokensRemaining:
-    handler: src/handlers.getLBPTokensRemainingHandler
+  getTokenHolders:
+    handler: src/handlers.getTokenHoldersHandler
     events:
       - http:
-          path: tokensRemaining
+          path: tokenholders
+          method: get
+          cors: true
+  getTokensMinted:
+    handler: src/handlers.getTokensMintedHandler
+    events:
+      - http:
+          path: tokensMinted
+          method: get
+          cors: true
+  getTokenHolderAndLPCount:
+    handler: src/handlers.getTokenHolderAndLPCountHandler
+    events:
+      - http:
+          path: tokenholderAndLP
+          method: get
+          cors: true
+  get24HSwapVolume:
+    handler: src/handlers.get24HSwapVolumeHandler
+    events:
+      - http:
+          path: swapVolume24H
+          method: get
+          cors: true
+  get7DSwapVolume:
+    handler: src/handlers.get7DSwapVolumeHandler
+    events:
+      - http:
+          path: swapVolume7D
           method: get
           cors: true
 
-	
 custom:
   customDomain:
     certificateName: holdr.fi
     domainName: api.holdr.fi
-    basePath: 'lbp'
+    basePath: 'analytics/mumbai'
     stage: ${self:provider.stage}
     createRoute53Record: true

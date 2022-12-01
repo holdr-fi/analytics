@@ -1,10 +1,22 @@
-import { getLBPEndTime, getLBPprice, getLBPHistoricalPrices, getLBPTokensRemaining } from './functions';
+// TODO - test if handlerWrapper works
 
-export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
+import {
+  getPoolCount,
+  getLPCount,
+  getTVL,
+  getTokenHolders,
+  getTokensMinted,
+  getTokenHolderAndLPCount,
+  get24HSwapVolume,
+  get7DSwapVolume,
+} from './functions';
+import { handlerWrapper } from './utils';
+
+export const getPoolCountHandler = async function getPoolCountHandler(event) {
   try {
-    console.time('getLBPEndTime');
-    const data = await getLBPEndTime();
-    console.timeEnd('getLBPEndTime');
+    console.time('getPoolCount');
+    const data = await getPoolCount();
+    console.timeEnd('getPoolCount');
     return {
       statusCode: 200,
       headers: {
@@ -21,16 +33,16 @@ export const getLBPEndTimeHandler = async function getLBPEndTimeHandler(event) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: 'getLBPEndTimeHandler error',
+      body: 'getPoolCountHandler error',
     };
   }
 };
 
-export const getLBPpriceHandler = async function getLBPpriceHandler(event) {
+export const getLPCountHandler = async function getLPCountHandler(event) {
   try {
-    console.time('getLBPprice');
-    const data = await getLBPprice();
-    console.timeEnd('getLBPprice');
+    console.time('getLPCount');
+    const data = await getLPCount();
+    console.timeEnd('getLPCount');
     return {
       statusCode: 200,
       headers: {
@@ -47,59 +59,17 @@ export const getLBPpriceHandler = async function getLBPpriceHandler(event) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
-      body: 'getLBPpriceHandler error',
+      body: 'getLPCountHandler error',
     };
   }
 };
 
-export const getLBPHistoricalPricesHandler = async function getLBPHistoricalPricesHandler(event) {
-  try {
-    console.time('getLBPPrices');
-    const data = await getLBPHistoricalPrices();
-    console.timeEnd('getLBPPrices');
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: JSON.stringify(data),
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: 'getLBPHistoricalPricesHandler error',
-    };
-  }
-};
-
-export const getLBPTokensRemainingHandler = async function getLBPTokensRemainingHandler(event) {
-  try {
-    console.time('getLBPTokensRemaining');
-    const data = await getLBPTokensRemaining();
-    console.timeEnd('getLBPTokensRemaining');
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: JSON.stringify(data),
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: 'getLBPTokensRemainingHandler error',
-    };
-  }
-};
+export const getTVLHandler = await handlerWrapper(getTVL, 'getTVL');
+export const getTokenHoldersHandler = await handlerWrapper(getTokenHolders, 'getTokenHolders');
+export const getTokensMintedHandler = await handlerWrapper(getTokensMinted, 'getTokensMinted');
+export const getTokenHolderAndLPCountHandler = await handlerWrapper(
+  getTokenHolderAndLPCount,
+  'getTokenHolderAndLPCount'
+);
+export const get24HSwapVolumeHandler = await handlerWrapper(get24HSwapVolume, 'get24HSwapVolume');
+export const get7DSwapVolumeHandler = await handlerWrapper(get7DSwapVolume, 'get7DSwapVolume');
