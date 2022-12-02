@@ -4,7 +4,7 @@ import {
   getPoolCount,
   getLPCount,
   getTVL,
-  getTokenHolders,
+  getTokenHolderCount,
   getTokensMinted,
   getTokenHolderAndLPCount,
   get24HSwapVolume,
@@ -17,69 +17,16 @@ import {
 } from './functions';
 import { handlerWrapper } from './utils';
 
-export const getPoolCountHandler = async function getPoolCountHandler(event) {
-  try {
-    console.time('getPoolCount');
-    const data = await getPoolCount();
-    console.timeEnd('getPoolCount');
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: JSON.stringify(data),
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: 'getPoolCountHandler error',
-    };
-  }
-};
-
-export const getLPCountHandler = async function getLPCountHandler(event) {
-  try {
-    console.time('getLPCount');
-    const data = await getLPCount();
-    console.timeEnd('getLPCount');
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: JSON.stringify(data),
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      statusCode: 400,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Credentials': true,
-      },
-      body: 'getLPCountHandler error',
-    };
-  }
-};
-
-export const getTVLHandler = await handlerWrapper(getTVL, 'getTVL');
-export const getTokenHoldersHandler = await handlerWrapper(getTokenHolders, 'getTokenHolders');
-export const getTokensMintedHandler = await handlerWrapper(getTokensMinted, 'getTokensMinted');
-export const getTokenHolderAndLPCountHandler = await handlerWrapper(
-  getTokenHolderAndLPCount,
-  'getTokenHolderAndLPCount'
-);
-export const get24HSwapVolumeHandler = await handlerWrapper(get24HSwapVolume, 'get24HSwapVolume');
-export const get7DSwapVolumeHandler = await handlerWrapper(get7DSwapVolume, 'get7DSwapVolume');
-export const getTotalVeHLDRHandler = await handlerWrapper(getTotalVeHLDR, 'getTotalVeHLDR');
-export const getAverageLockTimeHandler = await handlerWrapper(getAverageLockTime, 'getAverageLockTime');
-export const getTotalHPTHandler = await handlerWrapper(getTotalHPT, 'getTotalHPT');
-export const getHPTLockedHandler = await handlerWrapper(getHPTLocked, 'getHPTLocked');
-export const getPercentageHPTLockedHandler = await handlerWrapper(getPercentageHPTLocked, 'getPercentageHPTLocked');
+export const getPoolCountHandler = handlerWrapper(getPoolCount, 'getPoolCount');
+export const getLPCountHandler = handlerWrapper(getLPCount, 'getLPCount');
+export const getTVLHandler = handlerWrapper(getTVL, 'getTVL');
+export const getTokenHoldersHandler = handlerWrapper(getTokenHolderCount, 'getTokenHolderCount');
+export const getTokensMintedHandler = handlerWrapper(getTokensMinted, 'getTokensMinted');
+export const getTokenHolderAndLPCountHandler = handlerWrapper(getTokenHolderAndLPCount, 'getTokenHolderAndLPCount');
+export const get24HSwapVolumeHandler = handlerWrapper(get24HSwapVolume, 'get24HSwapVolume');
+export const get7DSwapVolumeHandler = handlerWrapper(get7DSwapVolume, 'get7DSwapVolume');
+export const getTotalVeHLDRHandler = handlerWrapper(getTotalVeHLDR, 'getTotalVeHLDR');
+export const getAverageLockTimeHandler = handlerWrapper(getAverageLockTime, 'getAverageLockTime');
+export const getTotalHPTHandler = handlerWrapper(getTotalHPT, 'getTotalHPT');
+export const getHPTLockedHandler = handlerWrapper(getHPTLocked, 'getHPTLocked');
+export const getPercentageHPTLockedHandler = handlerWrapper(getPercentageHPTLocked, 'getPercentageHPTLocked');

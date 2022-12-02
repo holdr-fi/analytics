@@ -71,11 +71,46 @@ functions:
           path: swapVolume7D
           method: get
           cors: true
+  getTotalVeHLDR:
+    handler: src/handlers.getTotalVeHLDRHandler
+    events:
+      - http:
+          path: totalvehldr
+          method: get
+          cors: true
+  getTotalHPT:
+    handler: src/handlers.getTotalHPTHandler
+    events:
+      - http:
+          path: totalHPT
+          method: get
+          cors: true
+  getHPTLocked:
+    handler: src/handlers.getHPTLockedHandler
+    events:
+      - http:
+          path: HPTLocked
+          method: get
+          cors: true
+  getAverageLockTime:
+    handler: src/handlers.getAverageLockTimeHandler
+    events:
+      - http:
+          path: averageLockTime
+          method: get
+          cors: true
+  getPercentageHPTLocked:
+    handler: src/handlers.getPercentageHPTLockedHandler
+    events:
+      - http:
+          path: percentageHPTlocked
+          method: get
+          cors: true
 
 custom:
   customDomain:
     certificateName: holdr.fi
     domainName: api.holdr.fi
-    basePath: 'analytics/mumbai'
+    basePath: 'analytics-mumbai'
     stage: ${self:provider.stage}
     createRoute53Record: true

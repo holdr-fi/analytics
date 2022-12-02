@@ -15,12 +15,16 @@ import {
   getHPTLocked,
   getPercentageHPTLocked,
 } from '../src/functions';
+
 // import {
 //   getCoingeckoSpotPriceForPlatformId,
 //   getCoingeckoHistoricalPricesForToken,
 //   getBlockForTimestamp,
 //   logSwaps,
 // } from '../src/utils';
+
+import { getPoolCountHandler, getTVLHandler } from '../src/handlers';
+
 import { expect } from 'chai';
 
 describe('API endpoints', async () => {
@@ -122,10 +126,19 @@ describe('API endpoints', async () => {
   //     return;
   //   }).timeout(10000);
   // });
-  describe('#getPercentageHPTLocked()', async () => {
+  // describe('#getPercentageHPTLocked()', async () => {
+  //   it('', async () => {
+  //     const data = await getPercentageHPTLocked();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  describe('#getPoolCountHandler()', async () => {
     it('', async () => {
-      const data = await getPercentageHPTLocked();
-      console.log(data);
+      // console.log(getPoolCountHandler);
+      console.log(getTVLHandler);
+      // const data = await getPercentageHPTLocked();
+      // console.log(data);
       return;
     }).timeout(10000);
   });
