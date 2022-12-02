@@ -19,91 +19,91 @@ functions:
     handler: src/handlers.getPoolCountHandler
     events:
       - http:
-          path: poolCount
+          path: pools/poolcount
           method: get
           cors: true
   getLPCount:
     handler: src/handlers.getLPCountHandler
     events:
       - http:
-          path: lpCount
+          path: pools/lpcount
           method: get
           cors: true
   getTVL:
     handler: src/handlers.getTVLHandler
     events:
       - http:
-          path: tvl
+          path: pools/tvl
           method: get
           cors: true
   getTokenHolders:
     handler: src/handlers.getTokenHoldersHandler
     events:
       - http:
-          path: tokenholders
+          path: governance/tokenholders
           method: get
           cors: true
   getTokensMinted:
     handler: src/handlers.getTokensMintedHandler
     events:
       - http:
-          path: tokensMinted
+          path: governance/tokensminted
           method: get
           cors: true
   getTokenHolderAndLPCount:
     handler: src/handlers.getTokenHolderAndLPCountHandler
     events:
       - http:
-          path: tokenholderAndLP
+          path: governance/tokenholdersandlp
           method: get
           cors: true
   get24HSwapVolume:
     handler: src/handlers.get24HSwapVolumeHandler
     events:
       - http:
-          path: swapVolume24H
+          path: exchange/24hvolume
           method: get
           cors: true
   get7DSwapVolume:
     handler: src/handlers.get7DSwapVolumeHandler
     events:
       - http:
-          path: swapVolume7D
+          path: exchange/7dvolume
           method: get
           cors: true
   getTotalVeHLDR:
     handler: src/handlers.getTotalVeHLDRHandler
     events:
       - http:
-          path: totalvehldr
+          path: vehldr/totalvehldr
           method: get
           cors: true
   getTotalHPT:
     handler: src/handlers.getTotalHPTHandler
     events:
       - http:
-          path: totalHPT
+          path: vehldr/totalhpt
           method: get
           cors: true
   getHPTLocked:
     handler: src/handlers.getHPTLockedHandler
     events:
       - http:
-          path: HPTLocked
+          path: vehldr/lockedhpt
           method: get
           cors: true
   getAverageLockTime:
     handler: src/handlers.getAverageLockTimeHandler
     events:
       - http:
-          path: averageLockTime
+          path: vehldr/locktime
           method: get
           cors: true
   getPercentageHPTLocked:
     handler: src/handlers.getPercentageHPTLockedHandler
     events:
       - http:
-          path: percentageHPTlocked
+          path: vehldr/percentagehptlocked
           method: get
           cors: true
 
