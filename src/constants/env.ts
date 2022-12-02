@@ -25,7 +25,7 @@ export const AURORA_URL = process.env.AURORA_URL;
 export const MUMBAI_URL = process.env.MUMBAI_URL;
 export const CHAIN_ID = process.env.CHAIN_ID;
 export const POOL_SUBGRAPH = process.env.POOL_SUBGRAPH;
-export const GAUGE_SUBGRAPH = process.env.GAUGE_SUBGRAPH;
+export const GAUGE_SUBGRAPH = process.env.GAUGE_SUBGRAPH || '';
 
 // Export correct block explorer API key
 

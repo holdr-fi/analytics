@@ -9,6 +9,11 @@ import {
   getTokenHolderAndLPCount,
   get24HSwapVolume,
   get7DSwapVolume,
+  getTotalVeHLDR,
+  getAverageLockTime,
+  getTotalHPT,
+  getHPTLocked,
+  getPercentageHPTLocked,
 } from './functions';
 import { handlerWrapper } from './utils';
 
@@ -73,3 +78,8 @@ export const getTokenHolderAndLPCountHandler = await handlerWrapper(
 );
 export const get24HSwapVolumeHandler = await handlerWrapper(get24HSwapVolume, 'get24HSwapVolume');
 export const get7DSwapVolumeHandler = await handlerWrapper(get7DSwapVolume, 'get7DSwapVolume');
+export const getTotalVeHLDRHandler = await handlerWrapper(getTotalVeHLDR, 'getTotalVeHLDR');
+export const getAverageLockTimeHandler = await handlerWrapper(getAverageLockTime, 'getAverageLockTime');
+export const getTotalHPTHandler = await handlerWrapper(getTotalHPT, 'getTotalHPT');
+export const getHPTLockedHandler = await handlerWrapper(getHPTLocked, 'getHPTLocked');
+export const getPercentageHPTLockedHandler = await handlerWrapper(getPercentageHPTLocked, 'getPercentageHPTLocked');

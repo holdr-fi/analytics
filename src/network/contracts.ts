@@ -1,5 +1,6 @@
 import VaultABI from './abis/Vault.json';
 import ERC20ABI from './abis/ERC20.json';
+import VotingEscrowABI from './abis/VotingEscrow.json';
 import { contractAddressListCollection } from './contractAddress';
 import { ContractAddressList } from './types';
 import { provider } from './provider';
@@ -14,6 +15,8 @@ const getABI = function getABI(contractName: string) {
       return VaultABI;
     case 'HLDR':
       return ERC20ABI;
+    case 'VotingEscrow':
+      return VotingEscrowABI;
     default:
       throw new Error(`Unable to find ${contractName}ABI`);
   }

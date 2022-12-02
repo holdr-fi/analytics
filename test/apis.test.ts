@@ -9,6 +9,11 @@ import {
   getTokenDecimals,
   get24HSwapVolume,
   get7DSwapVolume,
+  getTotalVeHLDR,
+  getAverageLockTime,
+  getTotalHPT,
+  getHPTLocked,
+  getPercentageHPTLocked,
 } from '../src/functions';
 // import {
 //   getCoingeckoSpotPriceForPlatformId,
@@ -75,16 +80,51 @@ describe('API endpoints', async () => {
   //     return;
   //   }).timeout(10000);
   // });
-  describe('#get24HSwapVolume()', async () => {
+  // describe('#get24HSwapVolume()', async () => {
+  //   it('', async () => {
+  //     const data = await get24HSwapVolume();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#get7DSwapVolume()', async () => {
+  //   it('', async () => {
+  //     const data = await get7DSwapVolume();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTotalVeHLDR()', async () => {
+  //   it('', async () => {
+  //     const data = await getTotalVeHLDR();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getAverageLockTime()', async () => {
+  //   it('', async () => {
+  //     const data = await getAverageLockTime();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getTotalHPT()', async () => {
+  //   it('', async () => {
+  //     const data = await getTotalHPT();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  // describe('#getHPTLocked()', async () => {
+  //   it('', async () => {
+  //     const data = await getHPTLocked();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(10000);
+  // });
+  describe('#getPercentageHPTLocked()', async () => {
     it('', async () => {
-      const data = await get24HSwapVolume();
-      console.log(data);
-      return;
-    }).timeout(10000);
-  });
-  describe('#get7DSwapVolume()', async () => {
-    it('', async () => {
-      const data = await get7DSwapVolume();
+      const data = await getPercentageHPTLocked();
       console.log(data);
       return;
     }).timeout(10000);
