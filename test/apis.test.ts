@@ -26,34 +26,34 @@ import {
 import { expect } from 'chai';
 
 describe('API endpoints', async () => {
-  // describe('#getPoolCount()', async () => {
-  //   it('', async () => {
-  //     const data = await getPoolCount();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getLPCount()', async () => {
-  //   it('', async () => {
-  //     const data = await getLPCount();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getTVL()', async () => {
-  //   it('', async () => {
-  //     const data = await getTVL();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(30000);
-  // });
-  // describe('#getTokensMinted()', async () => {
-  //   it('', async () => {
-  //     const data = await getTokensMinted();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
+  describe('#getPoolCount()', async () => {
+    it('', async () => {
+      const data = await getPoolCount();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getLPCount()', async () => {
+    it('', async () => {
+      const data = await getLPCount();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getTVL()', async () => {
+    it('', async () => {
+      const data = await getTVL();
+      console.log(data);
+      return;
+    }).timeout(30000);
+  });
+  describe('#getTokensMinted()', async () => {
+    it('', async () => {
+      const data = await getTokensMinted();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
   // describe('#getTokenHolderCount()', async () => {
   //   it('', async () => {
   //     const data = await getTokenHolderCount();
@@ -96,41 +96,41 @@ describe('API endpoints', async () => {
       return;
     }).timeout(10000);
   });
-  // describe('#getTotalVeHLDR()', async () => {
-  //   it('', async () => {
-  //     const data = await getTotalVeHLDR();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getAverageLockTime()', async () => {
-  //   it('', async () => {
-  //     const data = await getAverageLockTime();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getTotalHPT()', async () => {
-  //   it('', async () => {
-  //     const data = await getTotalHPT();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getHPTLocked()', async () => {
-  //   it('', async () => {
-  //     const data = await getHPTLocked();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
-  // describe('#getPercentageHPTLocked()', async () => {
-  //   it('', async () => {
-  //     const data = await getPercentageHPTLocked();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
+  describe('#getTotalVeHLDR()', async () => {
+    it('', async () => {
+      const data = await getTotalVeHLDR();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getAverageLockTime()', async () => {
+    it('', async () => {
+      const data = await getAverageLockTime();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getTotalHPT()', async () => {
+    it('', async () => {
+      const data = await getTotalHPT();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getHPTLocked()', async () => {
+    it('', async () => {
+      const data = await getHPTLocked();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#getPercentageHPTLocked()', async () => {
+    it('', async () => {
+      const data = await getPercentageHPTLocked();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
 });
 
 // describe('utils', async () => {

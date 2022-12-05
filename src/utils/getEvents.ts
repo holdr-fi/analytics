@@ -8,10 +8,8 @@ export const getEvents = async function getEvents(
 ): Promise<Event[]> {
   const endBlockAsNumber: number = endBlock == 'latest' ? await contract.provider.getBlockNumber() : endBlock;
 
-  console.log(`${startBlock} - ${endBlockAsNumber}`);
   try {
     const events = await contract.queryFilter(eventFilter, startBlock, endBlockAsNumber);
-    console.log(`returning ${events.length} results for ${startBlock} - ${endBlockAsNumber}`);
     return events;
   } catch (e) {
     const errorString = e.toString();
