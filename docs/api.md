@@ -1,5 +1,3 @@
-// TODO - Alter documentation for analytics API
-
 # API Endpoints
 
 ## Get number of pools
@@ -126,7 +124,7 @@ GET https://api.holdr.fi/analytics-mumbai/vehldr/locktime
 |---|---|---|
 |lockedHPT|number|Average lock time of locked 80-HLDR-20-WETH HPT, in seconds|
 
-## Get percentage of 80-HLDR-20-WETH HPT that is locked in VotingEscrow contract.l
+## Get percentage of 80-HLDR-20-WETH HPT that is locked in VotingEscrow contract.
 ```
 GET https://api.holdr.fi/analytics-mumbai/vehldr/percentagehptlocked
 ```
