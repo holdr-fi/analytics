@@ -2,6 +2,9 @@ import { ZERO_ADDRESS } from '../../constants';
 import { contracts } from '../../network';
 import { getEvents } from '../../utils';
 
+// TODO - Can we refactor to fulfil the query without using eth_getLogs?
+// Cannot fulfil this query on mainnet
+
 export const getTokenHolderCount = async function getTokenHolderCount(): Promise<number> {
   const tokenHolders = await getTokenHolders();
   return tokenHolders.size;

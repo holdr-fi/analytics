@@ -7,7 +7,7 @@ export const getLPCount = async function getLPCount(): Promise<number> {
   return lps.size;
 };
 
-const getLPs = async function getLPs(): Promise<Set<string>> {
+export const getLPs = async function getLPs(): Promise<Set<string>> {
   const data = await Promise.all([
     _getLPquery(0, 'asc'),
     _getLPquery(1000, 'asc'),

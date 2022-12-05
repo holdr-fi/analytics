@@ -1,6 +1,8 @@
 import { getTokenHolders } from './';
 import { getLPs } from '../pools';
 
+// TODO - Require different method to get tokenholders than using eth_getLogs
+
 export const getTokenHolderAndLPCount = async function getTokenHolderAndLPCount(): Promise<number> {
   const [tokenholders, lps] = await Promise.all([getTokenHolders(), getLPs()]);
 

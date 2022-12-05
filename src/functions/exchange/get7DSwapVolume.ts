@@ -1,29 +1,21 @@
-import { getAllSwaps } from '.';
-import { getCurrentTimestamp } from '../../utils';
+import { getAllSwapsWithinTime, SwapData } from './';
 import { WEEK } from '../../constants';
 import { getCoingeckoSpotPrice } from '../../utils';
 
-const threshold = getCurrentTimestamp() - WEEK;
-
 export const get7DSwapVolume = async function get7DSwapVolume(): Promise<number> {
-  const { swaps } = await getAllSwaps();
+  const swaps: SwapData[] = await getAllSwapsWithinTime(WEEK);
 
   const swapVolumeByToken = swaps.reduce((runningSwapVolumes, swapInfo) => {
-    if (swapInfo?.timestamp > threshold) {
-      runningSwapVolumes[swapInfo?.tokenIn] = Object.prototype.hasOwnProperty.call(
-        runningSwapVolumes,
-        swapInfo?.tokenIn
-      )
-        ? runningSwapVolumes[swapInfo?.tokenIn] + parseFloat(swapInfo?.tokenAmountIn)
-        : parseFloat(swapInfo?.tokenAmountIn);
+    runningSwapVolumes[swapInfo?.tokenIn] = Object.prototype.hasOwnProperty.call(runningSwapVolumes, swapInfo?.tokenIn)
+      ? runningSwapVolumes[swapInfo?.tokenIn] + parseFloat(swapInfo?.tokenAmountIn)
+      : parseFloat(swapInfo?.tokenAmountIn);
 
-      runningSwapVolumes[swapInfo?.tokenOut] = Object.prototype.hasOwnProperty.call(
-        runningSwapVolumes,
-        swapInfo?.tokenOut
-      )
-        ? runningSwapVolumes[swapInfo?.tokenOut] + parseFloat(swapInfo?.tokenAmountOut)
-        : parseFloat(swapInfo?.tokenAmountOut);
-    }
+    runningSwapVolumes[swapInfo?.tokenOut] = Object.prototype.hasOwnProperty.call(
+      runningSwapVolumes,
+      swapInfo?.tokenOut
+    )
+      ? runningSwapVolumes[swapInfo?.tokenOut] + parseFloat(swapInfo?.tokenAmountOut)
+      : parseFloat(swapInfo?.tokenAmountOut);
     return runningSwapVolumes;
   }, {});
 

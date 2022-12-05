@@ -6,6 +6,7 @@ import {
   getTokenHolderCount,
   getTokenHolderAndLPCount,
   getTokenDecimals,
+  getAllSwapsWithinTime,
   get24HSwapVolume,
   get7DSwapVolume,
   getTotalVeHLDR,
@@ -39,13 +40,13 @@ describe('API endpoints', async () => {
   //     return;
   //   }).timeout(10000);
   // });
-  describe('#getTVL()', async () => {
-    it('', async () => {
-      const data = await getTVL();
-      console.log(data);
-      return;
-    }).timeout(30000);
-  });
+  // describe('#getTVL()', async () => {
+  //   it('', async () => {
+  //     const data = await getTVL();
+  //     console.log(data);
+  //     return;
+  //   }).timeout(30000);
+  // });
   // describe('#getTokensMinted()', async () => {
   //   it('', async () => {
   //     const data = await getTokensMinted();
@@ -58,7 +59,7 @@ describe('API endpoints', async () => {
   //     const data = await getTokenHolderCount();
   //     console.log(data);
   //     return;
-  //   }).timeout(10000);
+  //   }).timeout(30000);
   // });
   // describe('#getTokenHolderAndLPCount()', async () => {
   //   it('', async () => {
@@ -74,20 +75,27 @@ describe('API endpoints', async () => {
   //     return;
   //   }).timeout(10000);
   // });
-  // describe('#get24HSwapVolume()', async () => {
+  // describe('#getAllSwapsWithinTime()', async () => {
   //   it('', async () => {
-  //     const data = await get24HSwapVolume();
+  //     const data = await getAllSwapsWithinTime(86400);
   //     console.log(data);
   //     return;
   //   }).timeout(10000);
   // });
-  // describe('#get7DSwapVolume()', async () => {
-  //   it('', async () => {
-  //     const data = await get7DSwapVolume();
-  //     console.log(data);
-  //     return;
-  //   }).timeout(10000);
-  // });
+  describe('#get24HSwapVolume()', async () => {
+    it('', async () => {
+      const data = await get24HSwapVolume();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
+  describe('#get7DSwapVolume()', async () => {
+    it('', async () => {
+      const data = await get7DSwapVolume();
+      console.log(data);
+      return;
+    }).timeout(10000);
+  });
   // describe('#getTotalVeHLDR()', async () => {
   //   it('', async () => {
   //     const data = await getTotalVeHLDR();
