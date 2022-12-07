@@ -1,4 +1,4 @@
-service: holdr-analytics
+service: holdr-aurora-analytics
 frameworkVersion: '3'	
 useDotenv: true
 
@@ -11,7 +11,7 @@ provider:
   name: aws
   stage: dev
   region: us-west-2
-  stackName: holdr-analytics
+  stackName: holdr-aurora-analytics
   runtime: nodejs14.x
 
 functions:
@@ -111,6 +111,6 @@ custom:
   customDomain:
     certificateName: holdr.fi
     domainName: api.holdr.fi
-    basePath: 'analytics-mumbai'
+    basePath: 'analytics'
     stage: ${self:provider.stage}
     createRoute53Record: true

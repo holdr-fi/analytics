@@ -3,7 +3,7 @@
 ## Get number of pools
 
 ```
-GET https://api.holdr.fi/analytics-mumbai/pools/poolcount
+GET https://api.holdr.fi/analytics/pools/poolcount
 ```
 
 ### Return values
@@ -14,7 +14,7 @@ GET https://api.holdr.fi/analytics-mumbai/pools/poolcount
 ## Get number of liquidity providers (LPs)
 
 ```
-GET https://api.holdr.fi/analytics-mumbai/pools/lpcount
+GET https://api.holdr.fi/analytics/pools/lpcount
 ```
 
 ### Return values
@@ -25,7 +25,7 @@ GET https://api.holdr.fi/analytics-mumbai/pools/lpcount
 ## Get total volume locked (TVL)
 
 ```
-GET https://api.holdr.fi/analytics-mumbai/pools/tvl
+GET https://api.holdr.fi/analytics/pools/tvl
 ```
 
 ### Return values
@@ -36,7 +36,7 @@ GET https://api.holdr.fi/analytics-mumbai/pools/tvl
 ## Get HLDR tokenholder count
 
 ```
-GET https://api.holdr.fi/analytics-mumbai/governance/tokenholders
+GET https://api.holdr.fi/analytics/governance/tokenholders
 ```
 
 ### Return values
@@ -46,7 +46,7 @@ GET https://api.holdr.fi/analytics-mumbai/governance/tokenholders
 
 ## Get HLDR tokens minted
 ```
-GET https://api.holdr.fi/analytics-mumbai/governance/tokensminted
+GET https://api.holdr.fi/analytics/governance/tokensminted
 ```
 
 ### Return values
@@ -56,7 +56,7 @@ GET https://api.holdr.fi/analytics-mumbai/governance/tokensminted
 
 ## Get count of addresses that are both HLDR tokenholders and a liquidity provider for a HLDR pool
 ```
-GET https://api.holdr.fi/analytics-mumbai/governance/tokenholdersandlp
+GET https://api.holdr.fi/analytics/governance/tokenholdersandlp
 ```
 
 ### Return values
@@ -66,7 +66,7 @@ GET https://api.holdr.fi/analytics-mumbai/governance/tokenholdersandlp
 
 ## Get HLDR swap volume in USD for last 24 hours.
 ```
-GET https://api.holdr.fi/analytics-mumbai/exchange/24hvolume
+GET https://api.holdr.fi/analytics/exchange/24hvolume
 ```
 
 ### Return values
@@ -76,8 +76,10 @@ GET https://api.holdr.fi/analytics-mumbai/exchange/24hvolume
 
 ## Get HLDR swap volume in USD for last 7 days.
 ```
-GET https://api.holdr.fi/analytics-mumbai/exchange/7dvolume
+GET https://api.holdr.fi/analytics/exchange/7dvolume
 ```
+
+# BELOW ENDPOINTS NOT CURRENTLY OPERATIONAL FOR AURORA
 
 ### Return values
 | Name | Type | Description |
@@ -86,7 +88,7 @@ GET https://api.holdr.fi/analytics-mumbai/exchange/7dvolume
 
 ## Get total supply of veHLDR
 ```
-GET https://api.holdr.fi/analytics-mumbai/vehldr/totalvehldr
+GET https://api.holdr.fi/analytics/vehldr/totalvehldr
 ```
 
 ### Return values
@@ -96,7 +98,7 @@ GET https://api.holdr.fi/analytics-mumbai/vehldr/totalvehldr
 
 ## Get total supply of 80-HLDR-20-WETH HPT
 ```
-GET https://api.holdr.fi/analytics-mumbai/vehldr/totalhpt
+GET https://api.holdr.fi/analytics/vehldr/totalhpt
 ```
 
 ### Return values
@@ -106,7 +108,7 @@ GET https://api.holdr.fi/analytics-mumbai/vehldr/totalhpt
 
 ## Get total number of locked 80-HLDR-20-WETH HPT
 ```
-GET https://api.holdr.fi/analytics-mumbai/vehldr/lockedhpt
+GET https://api.holdr.fi/analytics/vehldr/lockedhpt
 ```
 
 ### Return values
@@ -116,7 +118,7 @@ GET https://api.holdr.fi/analytics-mumbai/vehldr/lockedhpt
 
 ## Get average lock time of locked 
 ```
-GET https://api.holdr.fi/analytics-mumbai/vehldr/locktime
+GET https://api.holdr.fi/analytics/vehldr/locktime
 ```
 
 ### Return values
@@ -126,7 +128,7 @@ GET https://api.holdr.fi/analytics-mumbai/vehldr/locktime
 
 ## Get percentage of 80-HLDR-20-WETH HPT that is locked in VotingEscrow contract.
 ```
-GET https://api.holdr.fi/analytics-mumbai/vehldr/percentagehptlocked
+GET https://api.holdr.fi/analytics/vehldr/percentagehptlocked
 ```
 
 ### Return values
