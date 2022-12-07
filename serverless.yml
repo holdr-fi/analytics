@@ -1,4 +1,4 @@
-service: holdr-analytics
+service: holdr-mumbaianalytics
 frameworkVersion: '3'	
 useDotenv: true
 
@@ -11,7 +11,7 @@ provider:
   name: aws
   stage: dev
   region: us-west-2
-  stackName: holdr-analytics
+  stackName: holdr-mumbai-analytics
   runtime: nodejs14.x
 
 functions:
