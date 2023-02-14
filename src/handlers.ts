@@ -14,6 +14,8 @@ import {
   getTotalHPT,
   getHPTLocked,
   getPercentageHPTLocked,
+  getHLDRTotalSupply,
+  getHLDRCirculatingSupply,
 } from './functions';
 import { handlerWrapper } from './utils';
 
@@ -30,3 +32,5 @@ export const getAverageLockTimeHandler = handlerWrapper(getAverageLockTime, 'get
 export const getTotalHPTHandler = handlerWrapper(getTotalHPT, 'getTotalHPT');
 export const getHPTLockedHandler = handlerWrapper(getHPTLocked, 'getHPTLocked');
 export const getPercentageHPTLockedHandler = handlerWrapper(getPercentageHPTLocked, 'getPercentageHPTLocked');
+export const getHLDRTotalSupplyHandler = handlerWrapper(getHLDRTotalSupply, 'getHLDRTotalSupply');
+export const getHLDRCirculatingSupplyHandler = handlerWrapper(getHLDRCirculatingSupply, 'getHLDRCirculatingSupply');

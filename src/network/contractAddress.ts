@@ -15,7 +15,7 @@ const mumbaiContractAddressList: ContractAddressList = {
 const auroraContractAddressList: ContractAddressList = {
   Vault: '0x364d44dFc31b3d7b607797B514348d57Ad0D784E',
   HLDR: '0x1aaee8F00D02fcdb10cF1F0caB651dC83318c7AA',
-  VotingEscrow: '',
+  VotingEscrow: '0x5ed1e3D53AfdB0d0bc8661e056dffCD51c95bb9D',
 };
 
 export const contractAddressListCollection: ContractAddressListCollection = {

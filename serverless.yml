@@ -106,6 +106,20 @@ functions:
           path: vehldr/percentagehptlocked
           method: get
           cors: true
+  getHLDRTotalSupply:
+    handler: src/handlers.getHLDRTotalSupplyHandler
+    events:
+      - http:
+          path: hldr/totalsupply
+          method: get
+          cors: true
+  getHLDRCirculatingSupply:
+    handler: src/handlers.getHLDRCirculatingSupplyHandler
+    events:
+      - http:
+          path: hldr/circulatingsupply
+          method: get
+          cors: true
 
 custom:
   customDomain:
